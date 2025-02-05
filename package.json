@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "author": {
-    "name": "Kiran",
-    "url": "https://github.com/Kiranism"
+    "name": "Ilgar Huseynli",
+    "url": "https://github.com/ilgarhuseynli"
   },
   "scripts": {
     "dev": "next dev --turbopack",

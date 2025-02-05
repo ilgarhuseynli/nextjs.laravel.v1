@@ -102,8 +102,5 @@ git clone https://github.com/Kiranism/next-shadcn-dashboard-starter.git
 - `pnpm run dev`
 
 You should now be able to access the application at http://localhost:3000.
-
-> [!WARNING]
-> After cloning or forking the repository, be cautious when pulling or syncing with the latest changes, as this may result in breaking conflicts.
-
+ 
 Cheers! 🥂
