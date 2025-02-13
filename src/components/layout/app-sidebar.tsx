@@ -34,10 +34,10 @@ import { navItems } from '@/constants/data';
 import {
   BadgeCheck,
   Bell,
+  Building2,
   ChevronRight,
   ChevronsUpDown,
   CreditCard,
-  GalleryVerticalEnd,
   LogOut
 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
@@ -47,9 +47,9 @@ import * as React from 'react';
 import { Icons } from '../icons';
 
 export const company = {
-  name: 'Acme Inc',
-  logo: GalleryVerticalEnd,
-  plan: 'Enterprise'
+  name: 'STARTER',
+  logo: Building2,
+  plan: 'Starter'
 };
 
 export default function AppSidebar() {
@@ -195,14 +195,14 @@ export default function AppSidebar() {
                     <BadgeCheck />
                     Account
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <CreditCard />
-                    Billing
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Bell />
-                    Notifications
-                  </DropdownMenuItem>
+                  {/*<DropdownMenuItem>*/}
+                  {/*  <CreditCard />*/}
+                  {/*  Billing*/}
+                  {/*</DropdownMenuItem>*/}
+                  {/*<DropdownMenuItem>*/}
+                  {/*  <Bell />*/}
+                  {/*  Notifications*/}
+                  {/*</DropdownMenuItem>*/}
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut()}>

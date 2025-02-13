@@ -1,0 +1,723 @@
+{
+	"info": {
+		"_postman_id": "0456d0cc-e9f4-49b2-bc98-adf8f24936d6",
+		"name": "API V1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39648674"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"token\", pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-cookie}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Admin\",\n  \"email\": \"admin3@admin.com\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/register",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-XSRF-TOKEN",
+										"value": "{{xsrf-cookie}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Admin\",\n  \"email\": \"admin@admin.com\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 05 Jan 2025 07:03:16 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "XSRF-TOKEN=eyJpdiI6IkRsRVhiNFlubmlsbnJxeURQZVVjY1E9PSIsInZhbHVlIjoiL0tuRXlqekNHbDhTWmM1d0NHMmRDTExwL2lOcnhkeUhQRVFyQWRsZlJyMStWcXI1NXRheTdndzJ3ODFqdlR1SEtGQWJEZnZqMklZdzI0Nk5XTlJLMytoRy9UNWVsYkZXbXpPazZrWTlXSjRmZmc2M1RUOVJvSUFlMHpkTEVDRnoiLCJtYWMiOiI4NThkNzYyZTcyZTM0ZmQ2Y2Y3MWNhYmNjZWJlOTE5MGEwOTkwNzFlZTVkN2U3MzVjNDE0NWY0NTY4ZGI5OWNlIiwidGFnIjoiIn0%3D; expires=Sun, 05 Jan 2025 09:03:16 GMT; Max-Age=7200; path=/; samesite=lax"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "laravel_session=eyJpdiI6IlRQRXJkNWhtS3VqOFFGcllTTlg0U0E9PSIsInZhbHVlIjoia2ZPMkgzalI4Y0tvZkk1MDA5WHdrRzBhV1JaUFBudWFLQkdVbmZGYlY4MTdFWjV6d2VhS284OHVuSXR6aCtPZUo2LzhzK3pJczZaRGFiTi9IRGVPbjBFTVcyS2Juc05CWXBmelM3dnUzS1M1VTZwSThlVWladXZydUhPTElVUVoiLCJtYWMiOiIxZWYyNjc5MDFlZDE0ZjY3YzlhYWVkZDAzYWExNGFiYmY1Y2FlZWVlMGI1MDMzYjQyNGY5ZWY0MTM2NjA3NTE4IiwidGFnIjoiIn0%3D; expires=Sun, 05 Jan 2025 09:03:16 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"token\", pm.response.json().token);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Admin\",\n  \"email\": \"admin@admin.com\",\n  \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/login",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Clear token environment variable on success\", function () {",
+									"    if (pm.response.code === 200) {",
+									"        pm.environment.unset(\"token\");",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/logout",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth/sanctum",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sanctum/csrf-cookie",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sanctum",
+								"csrf-cookie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/forgot-password",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"1d9d35fb7df7d0f21ea094795e4d5262228de0ae49f39eeb562a81078b43f220\",\n    \"email\": \"test@example.com\",\n    \"password\": \"newpassword\",\n    \"password_confirmation\": \"newpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/reset-password",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email Verification Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/email/verification-notification",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"email",
+								"verification-notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/verify-email/:id/:hash?expires=1736336403&signature=5325fc41ae9da023490fb922712e76740e7277ba44a23490cbcc87e8eb9b4af5",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"verify-email",
+								":id",
+								":hash"
+							],
+							"query": [
+								{
+									"key": "expires",
+									"value": "1736336403"
+								},
+								{
+									"key": "signature",
+									"value": "5325fc41ae9da023490fb922712e76740e7277ba44a23490cbcc87e8eb9b4af5"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "hash",
+									"value": "d3942dce589a8baf879be01b717184712b119a72"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.sendRequest({",
+							"    url: pm.environment.get('base_url') + '/sanctum/csrf-cookie',",
+							"    method: 'GET'",
+							"}, function (error, response, {cookies}) {",
+							"    if (!error){",
+							"        pm.collectionVariables.set('xsrf-cookie', cookies.get('XSRF-TOKEN'))",
+							"    }",
+							"})"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "2FA",
+			"item": [
+				{
+					"name": "Enable 2FA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/2fa/enable",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"2fa",
+								"enable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify 2FA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"123456\",\n    \"remember_device\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/2fa/verify",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"2fa",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate 2FA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"123456\",\n    \"device_id\": \"optional-device-id\",\n    \"remember_device\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/2fa/validate",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"2fa",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Recovery Codes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/2fa/recovery-codes",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"2fa",
+								"recovery-codes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "List Devices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/devices",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/devices/:device_id/logout",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices",
+								":device_id",
+								"logout"
+							],
+							"variable": [
+								{
+									"key": "device_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout All Devices",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/devices/logout-all",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"devices",
+								"logout-all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "xsrf-cookie",
+			"value": ""
+		}
+	]
+}
