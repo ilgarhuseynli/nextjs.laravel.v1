@@ -6,7 +6,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token');
+  // Check for token in cookies or localStorage
+  const token = request.cookies.get('token') || request.cookies.get('laravel_session');
   const isAuthPage = request.nextUrl.pathname === '/';
 
   if (!token && !isAuthPage) {

@@ -1,3 +1,6 @@
+import axiosClient from '@/lib/axios';
+import { API_ROUTES } from '@/config/routes';
+
 type LoginCredentials = {
   email: string;
   password: string;
@@ -5,60 +8,22 @@ type LoginCredentials = {
 
 export const authService = {
   async getCsrfToken() {
-    // Get CSRF cookie from Laravel Sanctum
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sanctum/csrf-cookie`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${API_ROUTES.auth.csrf}`, {
       method: 'GET',
-      credentials: 'include' // Important: needed to include cookies
+      credentials: 'include'
     });
   },
 
   async login(credentials: LoginCredentials) {
-    // First get CSRF token
     await this.getCsrfToken();
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-      method: 'POST',
-      credentials: 'include', // Important: needed to include cookies
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Accept': 'application/json',
-        // Get the XSRF-TOKEN cookie and send it as XSRF-TOKEN header
-        // 'XSRF-TOKEN': decodeURIComponent(document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1] || '')
-      },
-      body: JSON.stringify(credentials)
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
-    }
-
-    const data = await response.json();
+    
+    const { data } = await axiosClient.post(API_ROUTES.auth.login, credentials);
     return data;
   },
 
   async logout() {
     await this.getCsrfToken();
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'XSRF-TOKEN': decodeURIComponent(
-          document.cookie
-            .split('; ')
-            .find((row) => row.startsWith('XSRF-TOKEN='))
-            ?.split('=')[1] || ''
-        )
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error('Logout failed');
-    }
-
+    await axiosClient.post(API_ROUTES.auth.logout);
     localStorage.removeItem('token');
   }
 };
