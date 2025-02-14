@@ -3,10 +3,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '@/lib/auth/auth-service';
+import { APP_ROUTES } from '@/config/routes';
+import Cookies from 'js-cookie';
 
 type User = {
   name: string;
   email: string;
+  image: string;
 };
 
 type AuthContextType = {
@@ -24,11 +27,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    // Check for token on initial load
-    const storedToken = localStorage.getItem('token');
+    // Check for token in both localStorage and cookies
+    const storedToken = localStorage.getItem('token') || Cookies.get('token');
     if (storedToken) {
       setToken(storedToken);
-      // You might want to fetch user data here using the token
     }
   }, []);
 
@@ -36,10 +38,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const response = await authService.login({ email, password });
       setToken(response.token);
-      localStorage.setItem('token', response.token);
-      // Assuming the API returns user data along with the token
       setUser(response.user);
-      router.push('/dashboard');
+      router.push(APP_ROUTES.dashboard.overview);
     } catch (error) {
       throw error;
     }
@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await authService.logout();
       setUser(null);
       setToken(null);
-      router.push('/');
+      router.push(APP_ROUTES.auth.login);
     } catch (error) {
       console.error('Logout failed:', error);
     }

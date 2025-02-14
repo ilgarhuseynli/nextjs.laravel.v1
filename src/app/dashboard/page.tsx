@@ -1,12 +1,21 @@
-import { auth } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+'use client';
 
-export default async function Dashboard() {
-  const session = await auth();
+import { useAuth } from '@/lib/auth/auth-context';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { APP_ROUTES } from '@/config/routes';
 
-  if (!session?.user) {
-    return redirect('/');
-  } else {
-    redirect('/dashboard/overview');
-  }
+export default function Dashboard() {
+  const { token } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      router.push(APP_ROUTES.auth.login);
+    } else {
+      router.push(APP_ROUTES.dashboard.overview);
+    }
+  }, [token, router]);
+
+  return null; // or loading spinner
 }

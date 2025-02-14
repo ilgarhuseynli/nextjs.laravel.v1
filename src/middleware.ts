@@ -4,18 +4,20 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { APP_ROUTES } from '@/config/routes';
 
 export function middleware(request: NextRequest) {
-  // Check for token in cookies or localStorage
-  const token = request.cookies.get('token') || request.cookies.get('laravel_session');
-  const isAuthPage = request.nextUrl.pathname === '/';
+  const token = request.cookies.get('token');
+  const isAuthPage = request.nextUrl.pathname === APP_ROUTES.auth.login;
 
   if (!token && !isAuthPage) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL(APP_ROUTES.auth.login, request.url));
   }
 
   if (token && isAuthPage) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(
+      new URL(APP_ROUTES.dashboard.overview, request.url)
+    );
   }
 
   return NextResponse.next();
