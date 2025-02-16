@@ -18,6 +18,10 @@ export const authService = {
     );
   },
 
+  async getAuthSettings() {
+    return await axiosClient.get('/authsettings');
+  },
+
   async login(credentials: LoginCredentials) {
     await this.getCsrfToken();
 

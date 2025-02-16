@@ -6,10 +6,23 @@ import { authService } from '@/lib/auth/auth-service';
 import { APP_ROUTES } from '@/config/routes';
 import Cookies from 'js-cookie';
 
+type Address = {
+  city?: string;
+  street?: string;
+  country?: string;
+  postal_code?: string;
+};
+
 type User = {
+  id: number;
+  first_name: string;
+  last_name: string;
   name: string;
-  email: string;
   image: string;
+  address: Address | boolean;
+  phone: string;
+  email: string;
+  created_at: number;
 };
 
 type AuthContextType = {
@@ -26,11 +39,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
+  const fetchUserData = async () => {
+    try {
+      const { data } = await authService.getAuthSettings();
+      setUser(data.account);
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    }
+  };
+
   useEffect(() => {
     // Check for token in both localStorage and cookies
     const storedToken = localStorage.getItem('token') || Cookies.get('token');
     if (storedToken) {
       setToken(storedToken);
+      fetchUserData();
     }
   }, []);
 
@@ -38,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const response = await authService.login({ email, password });
       setToken(response.token);
-      setUser(response.user);
+      await fetchUserData();
       router.push(APP_ROUTES.dashboard.overview);
     } catch (error) {
       throw error;
