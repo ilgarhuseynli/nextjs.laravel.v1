@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { authService } from '@/lib/auth/auth-service';
+import { toast } from 'sonner';
 
 const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    Accept: 'application/json'
   },
   withCredentials: true // This is important for cookies
 });
@@ -32,18 +34,31 @@ axiosClient.interceptors.response.use(
     // Handle 419 (CSRF token mismatch)
     if (error.response?.status === 419 && !originalRequest._retry) {
       originalRequest._retry = true;
-      
+
       // Get new CSRF token
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sanctum/csrf-cookie`, {
-        method: 'GET',
-        credentials: 'include'
-      });
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/sanctum/csrf-cookie`,
+        {
+          method: 'GET',
+          credentials: 'include'
+        }
+      );
 
       return axiosClient(originalRequest);
     }
+
+    // Handle 401 (Unauthorized)
+    if (error.response?.status === 401) {
+      await authService.logout();
+    }
+
+    const messages = Object.values(error.response.data.errors)
+      .flat()
+      .join('\n');
+    toast.error(messages);
 
     return Promise.reject(error);
   }
 );
 
-export default axiosClient; 
+export default axiosClient;

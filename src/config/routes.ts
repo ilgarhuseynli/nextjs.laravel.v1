@@ -24,7 +24,7 @@ export const API_ROUTES = {
 export const APP_ROUTES = {
   auth: {
     login: '/',
-    register: '/register'
+    register: '/signup'
   },
   dashboard: {
     root: '/dashboard',
@@ -32,4 +32,4 @@ export const APP_ROUTES = {
     profile: '/dashboard/profile',
     products: '/dashboard/products'
   }
-} as const; 
+} as const;
