@@ -157,7 +157,6 @@
 							"script": {
 								"exec": [
 									"pm.environment.set(\"token\", pm.response.json().token);",
-									"",
 									""
 								],
 								"type": "text/javascript",
@@ -241,30 +240,6 @@
 							],
 							"path": [
 								"logout"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "auth/sanctum",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/sanctum/csrf-cookie",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"sanctum",
-								"csrf-cookie"
 							]
 						}
 					},
@@ -408,6 +383,76 @@
 									"key": "hash",
 									"value": "d3942dce589a8baf879be01b717184712b119a72"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth/sanctum",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sanctum/csrf-cookie",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sanctum",
+								"csrf-cookie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/user",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authsettings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/authsettings",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"authsettings"
 							]
 						}
 					},
@@ -674,6 +719,257 @@
 							"path": [
 								"devices",
 								"logout-all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"test2@example.com\",\n  \"phone\": \"1234567892\",\n  \"password\": \"secret123\",\n  \"password_confirmation\": \"secret123\",\n  \"is_company\": false,\n  \"send_notification\": true,\n  \"type\": 2,\n  \"avatar\": \"\",\n  \"gender\": 1,\n  \"birth_date\": \"1990-01-01\",\n   \"phones\": [\n    \"1234567890\",\n    \"0987654321\"\n  ],\n   \"address_list\": [\n    {\n      \"street\": \"123 Main St\",\n      \"zip\": \"10001\",\n      \"city\": \"New York\",\n      \"state\": \"NY\",\n      \"country\": \"USA\"\n    },\n    {\n      \"street\": \"456 Elm St\",\n      \"zip\": \"90001\",\n      \"city\": \"Los Angeles\",\n      \"state\": \"CA\",\n      \"country\": \"USA\"\n    },\n    {\n      \"street\": \"789 Oak St\",\n      \"zip\": \"60601\",\n      \"city\": \"Chicago\",\n      \"state\": \"IL\",\n      \"country\": \"USA\"\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/users",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/users?limit=5&sort=created_at&sort_type=desc",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"description": "1 - employee | 2 - customer",
+									"disabled": true
+								},
+								{
+									"key": "role_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "sort",
+									"value": "created_at"
+								},
+								{
+									"key": "sort_type",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/users?limit=5&sort=created_at&sort_type=desc",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "1",
+											"description": "1 - employee | 2 - customer",
+											"disabled": true
+										},
+										{
+											"key": "role_id",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "sort",
+											"value": "created_at"
+										},
+										{
+											"key": "sort_type",
+											"value": "desc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.15"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Feb 2025 08:40:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 13,\n            \"first_name\": \"Test\",\n            \"last_name\": \"Doe\",\n            \"keyword\": \"Test Doe 1234567892 test2@example.com\",\n            \"name\": \"Test Doe\",\n            \"address\": {\n                \"street\": \"123 Main St\"\n            },\n            \"image\": \"http://127.0.0.1:8000/images/users/avatar-4.jpg\",\n            \"avatar\": false,\n            \"role\": null,\n            \"phone\": \"1234567892\",\n            \"email\": \"test2@example.com\",\n            \"created_at\": 1740226260\n        },\n        {\n            \"id\": 12,\n            \"first_name\": \"John\",\n            \"last_name\": \"Doe\",\n            \"keyword\": null,\n            \"name\": null,\n            \"address\": {\n                \"street\": \"123 Main St\"\n            },\n            \"image\": \"http://127.0.0.1:8000/images/users/avatar-4.jpg\",\n            \"avatar\": false,\n            \"role\": null,\n            \"phone\": \"1234567890\",\n            \"email\": \"test@example.com\",\n            \"created_at\": 1740225073\n        },\n        {\n            \"id\": 3,\n            \"first_name\": \"Laurel\",\n            \"last_name\": \"Hayes\",\n            \"keyword\": \"Laurel Hayes 994501979590 arnold14@example.com\",\n            \"name\": \"\",\n            \"address\": {\n                \"city\": \"West Johnathanhaven\",\n                \"street\": \"57475 Alfonso Groves\",\n                \"country\": \"Syrian Arab Republic\",\n                \"postal_code\": \"40575\"\n            },\n            \"image\": \"http://127.0.0.1:8000/images/users/avatar-4.jpg\",\n            \"avatar\": false,\n            \"role\": null,\n            \"phone\": \"994501979590\",\n            \"email\": \"arnold14@example.com\",\n            \"created_at\": 1740225058\n        },\n        {\n            \"id\": 4,\n            \"first_name\": \"Zelma\",\n            \"last_name\": \"Franecki\",\n            \"keyword\": \"Zelma Franecki 994704474718 rodrick.little@example.org\",\n            \"name\": \"\",\n            \"address\": {\n                \"city\": \"West Tillmanstad\",\n                \"street\": \"74719 Carmela Trafficway\",\n                \"country\": \"New Caledonia\",\n                \"postal_code\": \"16584\"\n            },\n            \"image\": \"http://127.0.0.1:8000/images/users/avatar-4.jpg\",\n            \"avatar\": false,\n            \"role\": null,\n            \"phone\": \"994704474718\",\n            \"email\": \"rodrick.little@example.org\",\n            \"created_at\": 1740225058\n        },\n        {\n            \"id\": 5,\n            \"first_name\": \"Brad\",\n            \"last_name\": \"Durgan\",\n            \"keyword\": \"Brad Durgan 994707298346 durgan.daija@example.org\",\n            \"name\": \"\",\n            \"address\": {\n                \"city\": \"Schneiderfurt\",\n                \"street\": \"8463 Haag Parks Apt. 505\",\n                \"country\": \"Samoa\",\n                \"postal_code\": \"31771-2423\"\n            },\n            \"image\": \"http://127.0.0.1:8000/images/users/avatar-4.jpg\",\n            \"avatar\": false,\n            \"role\": null,\n            \"phone\": \"994707298346\",\n            \"email\": \"durgan.daija@example.org\",\n            \"created_at\": 1740225058\n        }\n    ],\n    \"links\": {\n        \"first\": \"http://127.0.0.1:8000/api/v1/users?page=1\",\n        \"last\": \"http://127.0.0.1:8000/api/v1/users?page=3\",\n        \"prev\": null,\n        \"next\": \"http://127.0.0.1:8000/api/v1/users?page=2\"\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 3,\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"&laquo; Previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://127.0.0.1:8000/api/v1/users?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": \"http://127.0.0.1:8000/api/v1/users?page=2\",\n                \"label\": \"2\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://127.0.0.1:8000/api/v1/users?page=3\",\n                \"label\": \"3\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://127.0.0.1:8000/api/v1/users?page=2\",\n                \"label\": \"Next &raquo;\",\n                \"active\": false\n            }\n        ],\n        \"path\": \"http://127.0.0.1:8000/api/v1/users\",\n        \"per_page\": 5,\n        \"to\": 5,\n        \"total\": 13\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/users/:user",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"users",
+								":user"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Test\",\n  \"last_name\": \"Doe\",\n  \"email\": \"test2@example.com\",\n  \"phone\": \"1234567892\",\n  \"password\": \"secret123\",\n  \"password_confirmation\": \"secret123\",\n  \"is_company\": false,\n  \"send_notification\": true,\n  \"type\": 2,\n  \"avatar\": \"\",\n  \"gender\": 1,\n  \"birth_date\": \"1990-01-01\", \n  \"phones\": [\n    \"1234567890\",\n    \"0987654321\"\n  ],\n   \"address_list\": [\n    {\n      \"street\": \"123 Main St\",\n      \"zip\": \"10001\",\n      \"city\": \"New York\",\n      \"state\": \"NY\",\n      \"country\": \"USA\",\n      \"default\" : true\n    },\n    {\n      \"street\": \"456 Elm St\",\n      \"zip\": \"90001\",\n      \"city\": \"Los Angeles\",\n      \"state\": \"CA\",\n      \"country\": \"USA\"\n    },\n    {\n      \"street\": \"789 Oak St\",\n      \"zip\": \"60601\",\n      \"city\": \"Chicago\",\n      \"state\": \"IL\",\n      \"country\": \"USA\"\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/users/:user",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"users",
+								":user"
+							],
+							"variable": [
+								{
+									"key": "user",
+									"value": "13"
+								}
 							]
 						}
 					},

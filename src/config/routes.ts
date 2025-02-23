@@ -18,6 +18,13 @@ export const API_ROUTES = {
     list: '/devices',
     logout: (deviceId: string) => `/devices/${deviceId}/logout`,
     logoutAll: '/devices/logout-all'
+  },
+  users: {
+    list: '/users',
+    create: '/users',
+    get: (id: number) => `/users/${id}`,
+    update: (id: number) => `/users/${id}`,
+    delete: (id: number) => `/users/${id}`
   }
 } as const;
 
@@ -30,6 +37,11 @@ export const APP_ROUTES = {
     root: '/dashboard',
     overview: '/dashboard/overview',
     profile: '/dashboard/profile',
-    products: '/dashboard/products'
+    products: '/dashboard/products',
+    users: {
+      root: '/dashboard/users',
+      new: '/dashboard/users/new',
+      edit: (id: number) => `/dashboard/users/${id}/edit`
+    }
   }
 } as const;
