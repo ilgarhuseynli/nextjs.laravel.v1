@@ -33,7 +33,8 @@ export interface UserListParams {
   name?: string;
   type?: string;
   role_id?: string;
-  limit?: string;
+  limit?: string | number;
   sort?: string;
   sort_type?: string;
+  page?: string | number;
 }

@@ -9,8 +9,9 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import { SearchParams } from 'nuqs/server';
 import { Suspense } from 'react';
-import UserListingPage from '@/features/users/components/user-listing';
 import UserTableAction from '@/features/users/components/user-tables/user-table-action';
+import { UserListParams } from '@/features/users/types';
+import UserListingPage from '@/features/users/components/user-listing-page';
 
 export const metadata = {
   title: 'Dashboard: Users'
@@ -25,8 +26,19 @@ export default async function Page(props: pageProps) {
   // Allow nested RSCs to access the search params (in a type-safe way)
   searchParamsCache.parse(searchParams);
 
-  // This key is used for invoke suspense if any of the search params changed (used for filters).
   const key = serialize({ ...searchParams });
+
+  const page = searchParamsCache.get('page');
+  const name = searchParamsCache.get('name');
+  const pageLimit = searchParamsCache.get('limit');
+  const type = searchParamsCache.get('type');
+
+  const filters: UserListParams = {
+    page,
+    limit: pageLimit,
+    ...(name && { name }),
+    ...(type && { type: type })
+  };
 
   return (
     <PageContainer scrollable={false}>
@@ -49,7 +61,7 @@ export default async function Page(props: pageProps) {
           key={key}
           fallback={<DataTableSkeleton columnCount={5} rowCount={10} />}
         >
-          <UserListingPage />
+          <UserListingPage filters={filters} />
         </Suspense>
       </div>
     </PageContainer>

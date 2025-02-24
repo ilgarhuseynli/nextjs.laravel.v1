@@ -51,6 +51,12 @@ export const authService = {
     Cookies.remove('token');
   },
 
+  clearToken() {
+    // Clear token from both localStorage and cookie
+    localStorage.removeItem('token');
+    Cookies.remove('token');
+  },
+
   async signup(credentials: SignupCredentials) {
     await this.getCsrfToken();
 

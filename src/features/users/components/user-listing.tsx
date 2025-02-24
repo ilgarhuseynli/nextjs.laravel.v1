@@ -1,19 +1,43 @@
 'use client';
+
 import { DataTable } from '@/components/ui/table/data-table';
-import { useSearchParams } from 'next/navigation';
 import { columns } from './user-tables/columns';
-import { useUserList } from '../hooks/use-user-list';
+import { useUserTableFilters } from './user-tables/use-user-table-filters';
+import USERS_API from '../api/users';
+import { useEffect, useState } from 'react';
+import { UserListResponse } from '../types';
 
 export default function UserListingPage() {
-  const searchParams = useSearchParams();
-  const { data, isLoading } = useUserList({
-    name: searchParams.get('name') || '',
-    type: searchParams.get('type') || '',
-    role_id: searchParams.get('role_id') || '',
-    limit: searchParams.get('limit') || '10',
-    sort: searchParams.get('sort') || 'created_at',
-    sort_type: searchParams.get('sort_type') || 'desc'
-  });
+  const { searchQuery, typeFilter, page } = useUserTableFilters();
+  const [data, setData] = useState<UserListResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await USERS_API.list({
+          name: searchQuery as string,
+          type: typeFilter as string,
+          page: String(page),
+          limit: '10',
+          sort: 'created_at',
+          sort_type: 'desc'
+        });
+        setData(response);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [searchQuery, typeFilter, page]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <DataTable
