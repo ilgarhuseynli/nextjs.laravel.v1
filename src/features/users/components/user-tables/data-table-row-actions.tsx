@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 import { Edit, Trash } from 'lucide-react';
-import { User } from '../../types';
+import { User } from '@/types/user-types';
 
 interface DataTableRowActionsProps {
   row: Row<User>;

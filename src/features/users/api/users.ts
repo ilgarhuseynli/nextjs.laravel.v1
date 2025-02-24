@@ -1,25 +1,21 @@
 import axiosClient from '@/lib/axiosClient';
-import { User, UserListParams, UserListResponse } from '../types';
+import { User, UserListParams, UserListResponse } from '@/types/user-types';
 
 const USERS_API = {
   list: async (params: UserListParams): Promise<UserListResponse> => {
-    const { data } = await axiosClient.get('/users', { params });
-    return data;
+    return await axiosClient.get('/users', { params });
   },
 
   get: async (id: number): Promise<User> => {
-    const { data } = await axiosClient.get(`/users/${id}`);
-    return data;
+    return await axiosClient.get(`/users/${id}`);
   },
 
   create: async (userData: Partial<User>): Promise<User> => {
-    const { data } = await axiosClient.post('/users', userData);
-    return data;
+    return await axiosClient.post('/users', userData);
   },
 
   update: async (id: number, userData: Partial<User>): Promise<User> => {
-    const { data } = await axiosClient.put(`/users/${id}`, userData);
-    return data;
+    return await axiosClient.put(`/users/${id}`, userData);
   },
 
   delete: async (id: number): Promise<void> => {

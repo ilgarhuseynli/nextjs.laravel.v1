@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { SearchParams } from 'nuqs/server';
 import { Suspense } from 'react';
 import UserTableAction from '@/features/users/components/user-tables/user-table-action';
-import { UserListParams } from '@/features/users/types';
+import { UserListParams } from '@/types/user-types';
 import UserListingPage from '@/features/users/components/user-listing-page';
 
 export const metadata = {

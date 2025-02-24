@@ -5,25 +5,7 @@ import { useRouter } from 'next/navigation';
 import { authService } from '@/lib/auth/auth-service';
 import { APP_ROUTES } from '@/config/routes';
 import Cookies from 'js-cookie';
-
-type Address = {
-  city?: string;
-  street?: string;
-  country?: string;
-  postal_code?: string;
-};
-
-type User = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  name: string;
-  image: string;
-  address: Address | boolean;
-  phone: string;
-  email: string;
-  created_at: number;
-};
+import { User } from '@/types/user-types';
 
 type AuthContextType = {
   user: User | null;
@@ -41,7 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserData = async () => {
     try {
-      const { data } = await authService.getAuthSettings();
+      const data = await authService.getAuthSettings();
       setUser(data.account);
     } catch (error) {
       console.error('Failed to fetch user data:', error);

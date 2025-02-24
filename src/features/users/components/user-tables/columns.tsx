@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { User } from '../../types';
+import { User } from '@/types/user-types';
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { format } from 'date-fns';

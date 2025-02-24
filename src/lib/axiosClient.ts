@@ -27,7 +27,7 @@ axiosClient.interceptors.request.use(
 
 // Response interceptor for API calls
 axiosClient.interceptors.response.use(
-  (response) => response,
+  (response) => response.data,
   async (error) => {
     const originalRequest = error.config;
 

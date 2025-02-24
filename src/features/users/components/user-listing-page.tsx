@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { DataTable as UserTable } from '@/components/ui/table/data-table';
 import { columns } from './user-tables/columns';
-import { User, UserListParams } from '@/features/users/types';
+import { User, UserListParams } from '@/types/user-types';
 import USERS_API from '@/features/users/api/users';
 
 export default function UserListingPage({

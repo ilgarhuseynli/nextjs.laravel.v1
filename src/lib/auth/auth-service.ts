@@ -1,19 +1,12 @@
 import axiosClient from '@/lib/axiosClient';
 import { API_ROUTES } from '@/config/routes';
 import Cookies from 'js-cookie';
-
-type LoginCredentials = {
-  email: string;
-  password: string;
-};
-
-type SignupCredentials = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-};
+import {
+  LoginCredentials,
+  SignupCredentials,
+  AuthResponse,
+  AuthSettings
+} from '@/types/auth-types';
 
 export const authService = {
   async getCsrfToken() {
@@ -26,20 +19,23 @@ export const authService = {
     );
   },
 
-  async getAuthSettings() {
+  async getAuthSettings(): Promise<AuthSettings> {
     return await axiosClient.get('/authsettings');
   },
 
-  async login(credentials: LoginCredentials) {
+  async login(credentials: LoginCredentials): Promise<AuthResponse> {
     await this.getCsrfToken();
 
-    const { data } = await axiosClient.post(API_ROUTES.auth.login, credentials);
+    const response: AuthResponse = await axiosClient.post(
+      API_ROUTES.auth.login,
+      credentials
+    );
 
     // Store token in both localStorage and cookie
-    localStorage.setItem('token', data.token);
-    Cookies.set('token', data.token, { expires: 7 }); // Expires in 7 days
+    localStorage.setItem('token', response.token);
+    Cookies.set('token', response.token, { expires: 7 }); // Expires in 7 days
 
-    return data;
+    return response;
   },
 
   async logout() {
@@ -57,18 +53,18 @@ export const authService = {
     Cookies.remove('token');
   },
 
-  async signup(credentials: SignupCredentials) {
+  async signup(credentials: SignupCredentials): Promise<AuthResponse> {
     await this.getCsrfToken();
 
-    const { data } = await axiosClient.post(
+    const response: AuthResponse = await axiosClient.post(
       API_ROUTES.auth.register,
       credentials
     );
 
     // Store token in both localStorage and cookie
-    localStorage.setItem('token', data.token);
-    Cookies.set('token', data.token, { expires: 7 }); // Expires in 7 days
+    localStorage.setItem('token', response.token);
+    Cookies.set('token', response.token, { expires: 7 }); // Expires in 7 days
 
-    return data;
+    return response;
   }
 };
