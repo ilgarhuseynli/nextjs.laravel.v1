@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authService } from '@/lib/auth/auth-service';
+import { authService } from '@/features/auth/auth-service';
 import { toast } from 'sonner';
 
 const axiosClient = axios.create({

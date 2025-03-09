@@ -15,7 +15,7 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { authService } from '@/lib/auth/auth-service';
+import { authService } from '@/features/auth/auth-service';
 import { APP_ROUTES } from '@/config/routes';
 import { toast } from 'sonner';
 

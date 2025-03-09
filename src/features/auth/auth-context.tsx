@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authService } from '@/lib/auth/auth-service';
+import { authService } from './auth-service';
 import { APP_ROUTES } from '@/config/routes';
 import Cookies from 'js-cookie';
 import { User } from '@/types/user-types';

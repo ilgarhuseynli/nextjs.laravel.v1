@@ -44,7 +44,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../icons';
-import { useAuth } from '@/lib/auth/auth-context';
+import { useAuth } from '@/features/auth/auth-context';
 
 export const company = {
   name: 'STARTER',

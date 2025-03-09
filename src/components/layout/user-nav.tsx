@@ -1,7 +1,7 @@
 'use client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/lib/auth/auth-context';
+import { useAuth } from '@/features/auth/auth-context';
 
 import {
   DropdownMenu,

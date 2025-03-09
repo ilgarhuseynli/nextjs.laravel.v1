@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { AuthProvider } from '@/lib/auth/auth-context';
+import { AuthProvider } from '@/features/auth/auth-context';
 import { ThemeProvider } from 'next-themes';
 import QueryProvider from '@/providers/query-provider';
 
