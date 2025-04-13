@@ -84,6 +84,22 @@
   }
 }
 
+/* Calendar styles */
+.rdp {
+  --rdp-cell-size: 40px; /* Size of calendar cells */
+  --rdp-accent-color: hsl(var(--primary)); /* Accent color */
+  --rdp-background-color: hsl(
+    var(--primary) / 0.1
+  ); /* Lighter background for highlighted items */
+  --rdp-accent-color-dark: hsl(var(--primary)); /* Accent color in dark mode */
+  --rdp-background-color-dark: hsl(
+    var(--primary) / 0.2
+  ); /* Lighter background in dark mode */
+  --rdp-outline: 2px solid hsl(var(--primary) / 0.2); /* Outline for focused items */
+  --rdp-outline-selected: 2px solid hsl(var(--primary) / 0.75); /* Outline for selected items */
+  margin: 0;
+}
+
 /* Refined shadow utilities for better layering */
 @layer utilities {
   .shadow-card-dark {
