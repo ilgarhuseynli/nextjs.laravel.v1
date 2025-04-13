@@ -4,14 +4,16 @@ import { notFound } from 'next/navigation';
 import UserForm from './user-form';
 import USERS_API from '@/features/users/api/users';
 import { useEffect, useState } from 'react';
+import { User } from '@/types/user-types';
+import FormCardSkeleton from '@/components/form-card-skeleton';
 
 type TUserViewPageProps = {
   userId?: number;
 };
 
 export default function UserViewPage({ userId }: TUserViewPageProps) {
-  let user = null;
-  let pageTitle = 'Create New User';
+  const [user, setUser] = useState<User | null>(null);
+  const [pageTitle, setPageTitle] = useState('Create New User');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,21 +22,31 @@ export default function UserViewPage({ userId }: TUserViewPageProps) {
         setIsLoading(true);
 
         try {
-          const user = await USERS_API.get(userId);
-          if (!user) {
+          const userData = await USERS_API.get(userId);
+          if (!userData) {
             notFound();
           }
-          pageTitle = `Edit User`;
+          setUser(userData);
+          setPageTitle(
+            `Edit User: ${userData.first_name} ${userData.last_name}`
+          );
         } catch (error) {
-          console.error('Error loading users:', error);
+          console.error('Error loading user:', error);
         } finally {
           setIsLoading(false);
         }
+      } else {
+        // No userId means we're in create mode
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [userId]);
+
+  if (isLoading) {
+    return <FormCardSkeleton />;
+  }
 
   return <UserForm initialData={user} pageTitle={pageTitle} />;
 }
