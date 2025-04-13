@@ -8,7 +8,8 @@ const axiosClient = axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json'
   },
-  withCredentials: true // This is important for cookies
+  withCredentials: true, // This is important for cookies
+  withXSRFToken: true // This is important for cookies
 });
 
 // Request interceptor for API calls
@@ -52,10 +53,13 @@ axiosClient.interceptors.response.use(
       await authService.logout();
     }
 
-    const messages = Object.values(error.response.data.errors)
-      .flat()
-      .join('\n');
-    toast.error(messages);
+    let message = error.response.data.message;
+
+    if (!message) {
+      message = Object.values(error.response.data.errors).flat().join('\n');
+    }
+
+    toast.error(message);
 
     return Promise.reject(error);
   }

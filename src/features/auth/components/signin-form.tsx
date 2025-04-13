@@ -34,10 +34,10 @@ export default function SignInForm() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await login(data.email, data.password);
+      await login(data);
       toast.success('Signed in successfully!');
     } catch (error) {
-      toast.error('Invalid credentials');
+      // toast.error('Invalid credentials');
     }
   };
 

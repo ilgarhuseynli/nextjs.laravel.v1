@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -15,9 +14,8 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { authService } from '@/features/auth/auth-service';
-import { APP_ROUTES } from '@/config/routes';
 import { toast } from 'sonner';
+import { useAuth } from '@/features/auth/auth-context';
 
 const signupSchema = z
   .object({
@@ -36,7 +34,7 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { signup } = useAuth();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -52,11 +50,9 @@ export default function SignupForm() {
   async function onSubmit(values: SignupFormValues) {
     try {
       setIsLoading(true);
-      await authService.signup(values);
+      await signup(values);
       toast.success('Account created successfully');
-      router.push(APP_ROUTES.dashboard.overview);
     } catch (error: any) {
-      // toast.error(error.message);
       console.error('Signup error:', error.response.data);
     } finally {
       setIsLoading(false);

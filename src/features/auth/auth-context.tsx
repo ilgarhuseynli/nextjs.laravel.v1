@@ -6,11 +6,13 @@ import { authService } from './auth-service';
 import { APP_ROUTES } from '@/config/routes';
 import Cookies from 'js-cookie';
 import { User } from '@/types/user-types';
+import { LoginCredentials, SignupCredentials } from '@/types/auth-types';
 
 type AuthContextType = {
   user: User | null;
   token: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (credentials: LoginCredentials) => Promise<void>;
+  signup: (credentials: SignupCredentials) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -39,9 +41,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (credentials: LoginCredentials) => {
     try {
-      const response = await authService.login({ email, password });
+      const response = await authService.login(credentials);
+      setToken(response.token);
+      await fetchUserData();
+      router.push(APP_ROUTES.dashboard.overview);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const signup = async (credentials: SignupCredentials) => {
+    try {
+      const response = await authService.signup(credentials);
       setToken(response.token);
       await fetchUserData();
       router.push(APP_ROUTES.dashboard.overview);
@@ -62,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, signup, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

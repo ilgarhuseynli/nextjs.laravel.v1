@@ -20,7 +20,7 @@ export const authService = {
   },
 
   async getAuthSettings(): Promise<AuthSettings> {
-    return await axiosClient.get('/authsettings');
+    return await axiosClient.get(API_ROUTES.auth.authsettings);
   },
 
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
