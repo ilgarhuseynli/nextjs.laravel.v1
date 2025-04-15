@@ -1,11 +1,12 @@
 'use client';
 
 import { notFound } from 'next/navigation';
-import UserForm from './user-form';
+import UserCreateForm from './user-create-form';
 import USERS_API from '@/features/users/api/users';
 import { useEffect, useState } from 'react';
 import { User } from '@/types/user-types';
 import FormCardSkeleton from '@/components/form-card-skeleton';
+import UserEditForm from '@/features/users/components/user-edit-form';
 
 type TUserViewPageProps = {
   userId?: number;
@@ -48,5 +49,9 @@ export default function UserViewPage({ userId }: TUserViewPageProps) {
     return <FormCardSkeleton />;
   }
 
-  return <UserForm initialData={user} pageTitle={pageTitle} />;
+  if (userId) {
+    return <UserEditForm initialData={user} pageTitle={pageTitle} />;
+  } else {
+    return <UserCreateForm initialData={user} pageTitle={pageTitle} />;
+  }
 }

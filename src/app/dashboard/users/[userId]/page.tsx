@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import UserViewPage from '@/features/users/components/user-view-page';
 
 export const metadata = {
-  title: 'Dashboard : User View'
+  title: 'User edit'
 };
 
 type PageProps = { params: Promise<{ userId: number }> };

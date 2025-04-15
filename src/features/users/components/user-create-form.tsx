@@ -86,7 +86,7 @@ const formSchema = z
       .array(
         z.object({
           street: z.string().min(2, 'Street must be at least 2 characters'),
-          zip: z.string().optional(),
+          postal_code: z.string().optional(),
           city: z.string().min(2, 'City must be at least 2 characters'),
           state: z.string().optional(),
           country: z.string().min(2, 'Country must be at least 2 characters'),
@@ -108,7 +108,7 @@ const formSchema = z
     }
   );
 
-export default function UserForm({
+export default function UserCreateForm({
   initialData,
   pageTitle
 }: {
@@ -140,7 +140,7 @@ export default function UserForm({
       {
         street: '',
         city: '',
-        zip: '',
+        postal_code: '',
         state: '',
         country: '',
         is_primary: true
@@ -200,7 +200,7 @@ export default function UserForm({
       {
         street: '',
         city: '',
-        zip: '',
+        postal_code: '',
         state: '',
         country: '',
         is_primary: false
@@ -612,7 +612,7 @@ export default function UserForm({
                     />
                     <FormField
                       control={form.control}
-                      name={`address_list.${index}.zip`}
+                      name={`address_list.${index}.postal_code`}
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Postal Code</FormLabel>
